@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <WiFiClientSecure.h>
 #include "base64.h"
+#include "url_coding.hpp"
 
 class Twilio {
 public:
@@ -32,11 +33,12 @@ private:
         String account_sid;
         // Used for the password of the auth header
         String auth_token;
-        // To store the Twilio API SHA1 Fingerprint (get it from a browser)
+        // To store the Twilio API SHA1 Fingerprint (get it from a trusted browser)
         String fingerprint;
 
-
-        String _get_auth_header(const String& user, const String& password);
+        // Utilities for now and future expansion
+        static String _get_auth_header(const String& user, const String& password);
+        
 };
 
 #endif // TWILIO_HPP

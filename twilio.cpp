@@ -42,6 +42,9 @@ bool Twilio::send_message(
     return false;
   }
 
+  // URL encode our message body to escape special characters such as '&' and '='
+  String encoded_body = urlencode(message_body);
+
   // Use WiFiClientSecure class to create TLS 1.2 connection
   WiFiClientSecure client;
   const char* host = "api.twilio.com";
@@ -66,7 +69,7 @@ bool Twilio::send_message(
 
   // Attempt to send an SMS or MMS, depending on the size of the picture URL
   String post_data = "To=" + to_number + "&From=" + from_number + "&Body=" \
-    + message_body;
+    + encoded_body;
   if (picture_url.length() > 0) {
     post_data += "&MediaUrl=" + picture_url;
   }
@@ -118,4 +121,5 @@ String Twilio::_get_auth_header(const String& user, const String& password) {
   }
   return "Authorization: Basic " + encoded_string;
 }
+
 
