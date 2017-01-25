@@ -42,9 +42,10 @@ bool Twilio::send_message(
     return false;
   }
 
-  // URL encode our message body to escape special characters such as '&' and '='
+  // URL encode our message body & picture URL to escape special characters 
+  // such as '&' and '='
   String encoded_body = urlencode(message_body);
-
+  
   // Use WiFiClientSecure class to create TLS 1.2 connection
   WiFiClientSecure client;
   const char* host = "api.twilio.com";
@@ -59,7 +60,7 @@ bool Twilio::send_message(
     return false;
   }
 
-  // Check the SHA1 Fingerprint
+  // Check the SHA1 Fingerprint (We will watch for CA verification)
   if (client.verify(fingerprint.c_str(), host)) {
     response += ("Certificate fingerprints match.\r\n");
   } else {
@@ -71,7 +72,8 @@ bool Twilio::send_message(
   String post_data = "To=" + to_number + "&From=" + from_number + "&Body=" \
     + encoded_body;
   if (picture_url.length() > 0) {
-    post_data += "&MediaUrl=" + picture_url;
+    String encoded_image = urlencode(picture_url);
+    post_data += "&MediaUrl=" + encoded_image;
   }
 
   // Construct headers and post body manually
@@ -121,5 +123,3 @@ String Twilio::_get_auth_header(const String& user, const String& password) {
   }
   return "Authorization: Basic " + encoded_string;
 }
-
-
