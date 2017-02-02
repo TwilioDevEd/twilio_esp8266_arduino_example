@@ -9,17 +9,17 @@ Please read [our full article]() for more information.
 In Arduino IDE, first ensure your ESP8266 is burned with the Arduino bootloader and connected.  Then, merely adjust the globals at the top of the .ino file and hit the 'Upload' button.
 
 You'll then want to edit the following variables in twilio_esp8266_arduino_example.ino:
-    * ssid: Your network SSID
-    * password: Network's password
-    * fingerprint (maybe): The SHA1 Fingerprint of api/twilio.com, you
-        can check with a web browser
-    * account_sid: from twilio.com/console
-    * auth_token: from twilio.com/console
-    * to_number: A number to send the test SMS (or MMS) to
-    * from_number: An number from twilio.com/console authorized to send SMS and/or MMSes
-    * message_body: Message body to send
-    * master_number: 'Authorized' number for this ESP8266 example
-    * media_url (optional): Url to an image to send a test MMS
+* ssid: Your network SSID
+* password: Network's password
+* fingerprint (maybe): The SHA1 Fingerprint of api/twilio.com, you
+    can check with a web browser
+* account_sid: from twilio.com/console
+* auth_token: from twilio.com/console
+* to_number: A number to send the test SMS (or MMS) to
+* from_number: An number from twilio.com/console authorized to send SMS and/or MMSes
+* message_body: Message body to send
+* master_number: 'Authorized' number for this ESP8266 example
+* media_url (optional): Url to an image to send a test MMS
 
 ## Run example:
 
