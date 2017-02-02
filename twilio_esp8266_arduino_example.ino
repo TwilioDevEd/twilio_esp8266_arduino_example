@@ -119,7 +119,6 @@
         twilio_server.send(200, "application/xml", response);
 }
 
-
 /*
  * Setup function for ESP8266 Twilio Example.
  * 
