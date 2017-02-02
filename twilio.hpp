@@ -1,5 +1,5 @@
-#ifndef TWILIO_HPP
-#define TWILIO_HPP
+#pragma once
+
 #include <Arduino.h>
 #include <WiFiClientSecure.h>
 #include "base64.h"
@@ -8,15 +8,17 @@
 class Twilio {
 public:
         Twilio(
-                const char* accound_sid_in, 
+                const char* account_sid_in, 
                 const char* auth_token_in,
                 const char* fingerprint_in
-        );
+        )
+                : account_sid(account_sid_in)
+                , auth_token(auth_token_in)
+                , fingerprint(fingerprint_in)
+        {}
         // Empty destructor
-        ~Twilio() { }; 
+        ~Twilio() = default; 
 
-        void set_account_sid(const String& accound_sid_in);
-        void set_auth_token(const String& auth_token_in);
         bool send_message(
                 const String& to_number,
                 const String& from_number,
@@ -33,12 +35,13 @@ private:
         String account_sid;
         // Used for the password of the auth header
         String auth_token;
-        // To store the Twilio API SHA1 Fingerprint (get it from a trusted browser)
+        // To store the Twilio API SHA1 Fingerprint (get it from a browser)
         String fingerprint;
 
-        // Utilities for now and future expansion
-        static String _get_auth_header(const String& user, const String& password);
+        // Utilities
+        static String _get_auth_header(
+                const String& user, 
+                const String& password
+        );
         
 };
-
-#endif // TWILIO_HPP
