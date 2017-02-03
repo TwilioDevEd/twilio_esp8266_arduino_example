@@ -2,7 +2,13 @@
 
 An example application that demonstrates how to send SMS or MMS messages with an ESP8266 connected to a friendly WiFi network, as well as hosts a basic server to receive and respond to SMS and MMS messages.
 
-Please read [our full article]() for more information.
+Please read [our sending messages article](https://www.twilio.com/docs/guides/send-sms-and-mms-messages-esp8266-cpp) and our [our receiving and replying to messages article](https://www.twilio.com/docs/guides/receive-and-reply-sms-and-mms-messages-esp8266-c-and-ngrok) for more information.
+
+Once this application is loaded to the ESP8266 it will:
+
+1) Send an SMS (or MMS if you choose) to a number
+2) Start a webserver with the route '/message'
+3) Listen for requests to '/message' and respond with a canned response or by reacting to a command from the master number.
 
 ## Build example:
 
