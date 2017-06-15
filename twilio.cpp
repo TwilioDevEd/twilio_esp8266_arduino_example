@@ -2,13 +2,13 @@
 
 /*
  * Send a SMS or MMS with the Twilio REST API
- * 
+ *
  * Inputs:
  *  - to_number : Number to send the message to
  *  - from_number : Number to send the message from
  *  - message_body : Text to send in the message (max 1600 characters)
  *  - picture_url : (Optional) URL to an image
- *  
+ *
  * Outputs:
  *  - response : Connection messages and Twilio responses returned to caller
  *  - bool (method) : Whether the message send was successful
@@ -32,7 +32,7 @@ bool Twilio::send_message(
                 return false;
         }
 
-        // URL encode our message body & picture URL to escape special chars 
+        // URL encode our message body & picture URL to escape special chars
         // such as '&' and '='
         String encoded_body = urlencode(message_body);
 
@@ -59,7 +59,7 @@ bool Twilio::send_message(
         }
 
         // Attempt to send an SMS or MMS, depending on picture URL
-        String post_data = "To=" + to_number + "&From=" + from_number + \
+        String post_data = "To=" + urlencode(to_number) + "&From=" + urlencode(from_number) + \
         "&Body=" + encoded_body;
         if (picture_url.length() > 0) {
                 String encoded_image = urlencode(picture_url);
@@ -68,7 +68,7 @@ bool Twilio::send_message(
 
         // Construct headers and post body manually
         String auth_header = _get_auth_header(account_sid, auth_token);
-        String http_request = "POST /2010-04-01/Accounts/" + 
+        String http_request = "POST /2010-04-01/Accounts/" +
                               String(account_sid) + "/Messages HTTP/1.1\r\n" +
                               auth_header + "\r\n" + "Host: " + host + "\r\n" +
                               "Cache-control: no-cache\r\n" +
@@ -90,7 +90,7 @@ bool Twilio::send_message(
         response += ("\r\n");
         }
         response += ("closing connection");
-        return true; 
+        return true;
 }
 
 /* Private function to create a Basic Auth field and parameter */
@@ -99,10 +99,10 @@ String Twilio::_get_auth_header(const String& user, const String& password) {
         char toencode[toencodeLen];
         memset(toencode, 0, toencodeLen);
         snprintf(
-                toencode, 
-                toencodeLen, 
-                "%s:%s", 
-                user.c_str(), 
+                toencode,
+                toencodeLen,
+                "%s:%s",
+                user.c_str(),
                 password.c_str()
         );
 
