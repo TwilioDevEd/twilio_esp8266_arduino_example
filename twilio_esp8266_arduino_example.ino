@@ -10,40 +10,46 @@
 #define USE_SOFTWARE_SERIAL 0
 
 // Your network SSID and password
- const char* ssid = "Your SSID";
- const char* password = "Network Password";
+const char* ssid = "Your SSID";
+const char* password = "Network Password";
 
 // Find the api.twilio.com SHA1 fingerprint, this one was valid as 
 // of January 2017.
- const char* fingerprint = "47 18 D6 BE F5 D0 BF CE 01 B7 AD BD 96 3A AA 46 F1 8C F1 A5";
+const char* fingerprint = "47 18 D6 BE F5 D0 BF CE 01 B7 AD BD 96 3A AA 46 F1 8C F1 A5";
 
 // Twilio account specific details, from https://twilio.com/console
- const char* account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
- const char* auth_token = "Your AUTH TOKEN";
+// Please see the article: 
+// https://www.twilio.com/docs/guides/receive-and-reply-sms-and-mms-messages-esp8266-c-and-ngrok
+
+// If this device is deployed in the field you should only deploy a revocable
+// key. This code is only suitable for prototyping or if you retain physical
+// control of the installation.
+const char* account_sid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+const char* auth_token = "Your AUTH TOKEN";
 
 // Details for the SMS we'll send with Twilio.  Should be a number you own 
 // (check the console, link above).
- String to_number    = "+18005551212";
- String from_number = "+18005551212";
- String message_body    = "Hello from Twilio and the ESP8266!";
+String to_number    = "+18005551212";
+String from_number = "+18005551212";
+String message_body    = "Hello from Twilio and the ESP8266!";
 
 // The 'authorized number' to text the ESP8266 for our example
- String master_number    = "+18005551212";
+String master_number    = "+18005551212";
 
 // Optional - a url to an image.  See 'MediaUrl' here: 
 // https://www.twilio.com/docs/api/rest/sending-messages
- String media_url = "";
+String media_url = "";
 
 // Global twilio objects
- Twilio *twilio;
- ESP8266WebServer twilio_server(8000);
+Twilio *twilio;
+ESP8266WebServer twilio_server(8000);
 
 //  Optional software serial debugging
 #if USE_SOFTWARE_SERIAL == 1
 #include <SoftwareSerial.h>
 // You'll need to set pin numbers to match your setup if you
 // do use Software Serial
- extern SoftwareSerial swSer(14, 4, false, 256);
+extern SoftwareSerial swSer(14, 4, false, 256);
 #endif
 
 /*
