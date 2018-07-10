@@ -15,7 +15,7 @@ const char* password = "Network Password";
 
 // Find the api.twilio.com SHA1 fingerprint, this one was valid as 
 // of January 2017.
-const char* fingerprint = "47 18 D6 BE F5 D0 BF CE 01 B7 AD BD 96 3A AA 46 F1 8C F1 A5";
+const char* fingerprint = "CF C4 40 77 88 75 5F BD 07 0F 88 3F 1C BD 95 3B DD AE 5F 13";
 
 // Twilio account specific details, from https://twilio.com/console
 // Please see the article: 
