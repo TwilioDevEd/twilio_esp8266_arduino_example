@@ -14,8 +14,8 @@ const char* ssid = "Your SSID";
 const char* password = "Network Password";
 
 // Find the api.twilio.com SHA1 fingerprint, this one was valid as 
-// of July 2018.
-const char* fingerprint = "CF C4 40 77 88 75 5F BD 07 0F 88 3F 1C BD 95 3B DD AE 5F 13";
+// of July 2019.
+const char* fingerprint = "06 86 86 C0 A0 ED 02 20 7A 55 CC F0 75 BB CF 24 B1 D9 C0 49";
 
 // Twilio account specific details, from https://twilio.com/console
 // Please see the article: 
