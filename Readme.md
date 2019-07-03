@@ -17,7 +17,7 @@ In Arduino IDE, first ensure your ESP8266 is burned with the Arduino bootloader 
 You'll then want to edit the following variables in twilio_esp8266_arduino_example.ino:
 * ssid: Your network SSID
 * password: Network's password
-* fingerprint (maybe): The SHA1 Fingerprint of api/twilio.com, you
+* fingerprint (maybe): The SHA1 Fingerprint of api.twilio.com, you
     can check with a web browser
 * account_sid: from twilio.com/console
 * auth_token: from twilio.com/console
