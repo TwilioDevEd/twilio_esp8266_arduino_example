@@ -38,8 +38,15 @@ bool Twilio::send_message(
 
         // Use WiFiClientSecure class to create TLS 1.2 connection
         WiFiClientSecure client;
+        client.setFingerprint(fingerprint.c_str());
         const char* host = "api.twilio.com";
         const int   httpsPort = 443;
+
+        // Use WiFiClientSecure class to create TLS connection
+        Serial.print("connecting to ");
+        Serial.println(host);
+        
+        Serial.printf("Using fingerprint '%s'\n", fingerprint.c_str());
 
         // Connect to Twilio's REST API
         response += ("Connecting to host ");
