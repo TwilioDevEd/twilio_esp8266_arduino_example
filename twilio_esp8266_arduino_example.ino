@@ -3,19 +3,24 @@
  */
 
 #include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
 #include <ESP8266WebServer.h>
+
 #include "twilio.hpp"
 
 // Use software serial for debugging?
 #define USE_SOFTWARE_SERIAL 0
 
+// Print debug messages over serial?
+#define USE_SERIAL 1
+
 // Your network SSID and password
-const char* ssid = "Your SSID";
-const char* password = "Network Password";
+const char* ssid = "The_Sailboat";
+const char* password = "club848!";
 
 // Find the api.twilio.com SHA1 fingerprint, this one was valid as 
-// of July 2019.
-const char* fingerprint = "06 86 86 C0 A0 ED 02 20 7A 55 CC F0 75 BB CF 24 B1 D9 C0 49";
+// of August 2019.
+const char fingerprint[] = "06 86 86 C0 A0 ED 02 20 7A 55 CC F0 75 BB CF 24 B1 D9 C0 49";
 
 // Twilio account specific details, from https://twilio.com/console
 // Please see the article: 
@@ -50,6 +55,8 @@ ESP8266WebServer twilio_server(8000);
 // You'll need to set pin numbers to match your setup if you
 // do use Software Serial
 extern SoftwareSerial swSer(14, 4, false, 256);
+#else
+#define swSer Serial
 #endif
 
 /*
@@ -57,7 +64,7 @@ extern SoftwareSerial swSer(14, 4, false, 256);
  * Use the global 'twilio_server' object to respond.
  */
  void handle_message() {
-        #if USE_SOFTWARE_SERIAL == 1
+        #if USE_SERIAL == 1
         swSer.println("Incoming connection!  Printing body:");
         #endif
         bool authorized = false;
@@ -65,7 +72,7 @@ extern SoftwareSerial swSer(14, 4, false, 256);
 
         // Parse Twilio's request to the ESP
         for (int i = 0; i < twilio_server.args(); ++i) {
-                #if USE_SOFTWARE_SERIAL == 1
+                #if USE_SERIAL == 1
                 swSer.print(twilio_server.argName(i));
                 swSer.print(": ");
                 swSer.println(twilio_server.arg(i));
@@ -84,6 +91,7 @@ extern SoftwareSerial swSer(14, 4, false, 256);
         } // end for loop parsing Twilio's request
 
         // Logic to handle the incoming SMS
+        // (Some board are active low so the light will have inverse logic)
         String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
         if (command != '\0') {
                 if (authorized) {
@@ -128,14 +136,15 @@ extern SoftwareSerial swSer(14, 4, false, 256);
 /*
  * Setup function for ESP8266 Twilio Example.
  * 
- * Here we connect to a friendly wireless network, instantiate our twilio 
- * object, optionally set up software serial, then send a SMS or MMS message.
+ * Here we connect to a friendly wireless network, set the time, instantiate 
+ * our twilio object, optionally set up software serial, then send a SMS 
+ * or MMS message.
  */
 void setup() {
         WiFi.begin(ssid, password);
         twilio = new Twilio(account_sid, auth_token, fingerprint);
 
-        #if USE_SOFTWARE_SERIAL == 1
+        #if USE_SERIAL == 1
         swSer.begin(115200);
         while (WiFi.status() != WL_CONNECTED) {
                 delay(1000);
@@ -157,7 +166,7 @@ void setup() {
                 message_body,
                 response,
                 media_url
-                );
+        );
 
         // Set up a route to /message which will be the webhook url
         twilio_server.on("/message", handle_message);
@@ -166,7 +175,7 @@ void setup() {
         // Use LED_BUILTIN to find the LED pin and set the GPIO to output
         pinMode(LED_BUILTIN, OUTPUT);
 
-        #if USE_SOFTWARE_SERIAL == 1
+        #if USE_SERIAL == 1
         swSer.println(response);
         #endif
 }
