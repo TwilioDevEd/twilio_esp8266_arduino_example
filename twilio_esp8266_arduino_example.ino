@@ -19,8 +19,10 @@ const char* ssid = "The_Sailboat";
 const char* password = "club848!";
 
 // Find the api.twilio.com SHA1 fingerprint, this one was valid as 
-// of August 2019.
-const char fingerprint[] = "06 86 86 C0 A0 ED 02 20 7A 55 CC F0 75 BB CF 24 B1 D9 C0 49";
+// of July 2020. This will change, please see 
+// https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-esp8266-cpp
+// to see how to update the fingerprint.
+const char fingerprint[] = "BC B0 1A 32 80 5D E6 E4 A2 29 66 2B 08 C8 E0 4C 45 29 3F D0";
 
 // Twilio account specific details, from https://twilio.com/console
 // Please see the article: 
