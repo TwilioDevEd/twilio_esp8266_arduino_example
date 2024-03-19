@@ -35,7 +35,7 @@ Either serial debugging or perhaps a peek at your router screen will reveal the 
     
 ### Fingerprint failure
 
-The most common reason the sketch fails (assumign you correctly copied credentials) is the `api.twilio.com` certificate changes. See [this section](https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-esp8266-cpp#dealing-with-message-failure) of the Twilio Docs to update the fingerprint in your code.
+The most common reason the sketch fails (assumign you correctly copied credentials) is the `api.twilio.com` certificate changes. See [this section](https://www.twilio.com/en-us/blog/how-to-send-sms-messages-esp8266-cpp#Dealing-with-message-failure) of the Twilio Blog to update the fingerprint in your code.
 
 ## Motivations
 
